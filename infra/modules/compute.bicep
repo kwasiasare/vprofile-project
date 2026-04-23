@@ -102,6 +102,18 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           ]
           probes: [
             {
+              type: 'startup'
+              httpGet: {
+                path: '/actuator/health'
+                port: 8080
+                scheme: 'HTTP'
+              }
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              timeoutSeconds: 5
+              failureThreshold: 10
+            }
+            {
               type: 'liveness'
               httpGet: {
                 path: '/actuator/health'
