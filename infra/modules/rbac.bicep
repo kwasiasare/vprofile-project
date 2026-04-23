@@ -16,10 +16,31 @@ param serviceBusId string
 @description('Search Service resource ID')
 param searchServiceId string
 
+// Reference the existing resources to use as scope
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' existing = {
+  name: last(split(containerRegistryId, '/'))
+}
+
+resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
+  name: last(split(keyVaultId, '/'))
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
+  name: last(split(storageAccountId, '/'))
+}
+
+resource serviceBus 'Microsoft.ServiceBus/namespaces@2024-01-01' existing = {
+  name: last(split(serviceBusId, '/'))
+}
+
+resource searchService 'Microsoft.Search/searchServices@2023-11-01' existing = {
+  name: last(split(searchServiceId, '/'))
+}
+
 // ACR Pull role assignment - scoped to specific container registry
 resource acrPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(containerRegistryId, containerAppPrincipalId, 'AcrPull')
-  scope: containerRegistryId
+  scope: containerRegistry
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
     principalId: containerAppPrincipalId
@@ -30,7 +51,7 @@ resource acrPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
 // Key Vault Secrets User role assignment - scoped to specific key vault
 resource keyVaultSecretsUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(keyVaultId, containerAppPrincipalId, 'KeyVaultSecretsUser')
-  scope: keyVaultId
+  scope: keyVault
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6')
     principalId: containerAppPrincipalId
@@ -41,7 +62,7 @@ resource keyVaultSecretsUserRoleAssignment 'Microsoft.Authorization/roleAssignme
 // Storage Blob Data Contributor role assignment - scoped to specific storage account
 resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(storageAccountId, containerAppPrincipalId, 'StorageBlobDataContributor')
-  scope: storageAccountId
+  scope: storageAccount
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')
     principalId: containerAppPrincipalId
@@ -52,7 +73,7 @@ resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleA
 // Service Bus Data Sender role assignment - scoped to specific service bus
 resource serviceBusDataSenderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(serviceBusId, containerAppPrincipalId, 'ServiceBusDataSender')
-  scope: serviceBusId
+  scope: serviceBus
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '69a216fc-b8fb-44d8-bc22-1f3c2cd27a39')
     principalId: containerAppPrincipalId
@@ -63,7 +84,7 @@ resource serviceBusDataSenderRoleAssignment 'Microsoft.Authorization/roleAssignm
 // Search Service Contributor role assignment - scoped to specific search service
 resource searchServiceContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(searchServiceId, containerAppPrincipalId, 'SearchServiceContributor')
-  scope: searchServiceId
+  scope: searchService
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7ca78c08-252a-4471-8644-bb5ff32d4ba0')
     principalId: containerAppPrincipalId
