@@ -12,7 +12,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' = {
   location: location
   tags: tags
   sku: {
-    name: 'free'
+    name: 'basic'
   }
   properties: {
     replicaCount: 1
