@@ -18,7 +18,7 @@ resource searchService 'Microsoft.Search/searchServices@2023-11-01' = {
     replicaCount: 1
     partitionCount: 1
     hostingMode: 'default'
-    publicNetworkAccess: 'disabled'
+    publicNetworkAccess: 'enabled'
     encryptionWithCmk: {
       enforcement: 'Unspecified'
     }
