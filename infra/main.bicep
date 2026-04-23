@@ -16,8 +16,9 @@ param mysqlAdminUsername string
 @secure()
 param mysqlAdminPassword string
 
-variable environmentId = '${projectName}-${environment}'
-variable commonTags = {
+// Variables
+var environmentId = '${projectName}-${environment}'
+var commonTags = {
   environment: environment
   project: projectName
   managedBy: 'bicep'
