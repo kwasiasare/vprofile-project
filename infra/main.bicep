@@ -14,7 +14,7 @@ param mysqlAdminUsername string
 
 @description('MySQL server administrator password')
 @secure()
-param mysqlAdminPassword string
+param mysqlAdminPassword string = newGuid()
 
 // Variables
 var environmentId = '${projectName}-${environment}'
