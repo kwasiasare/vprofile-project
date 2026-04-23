@@ -52,6 +52,7 @@ module security 'modules/security.bicep' = {
     location: location
     tags: commonTags
     keyVaultSubnetId: networking.outputs.keyVaultSubnetId
+    keyVaultDnsZoneId: networking.outputs.keyVaultDnsZoneId
   }
 }
 
@@ -115,6 +116,7 @@ module messaging 'modules/messaging.bicep' = {
     location: location
     tags: commonTags
     serviceBusSubnetId: networking.outputs.serviceBusSubnetId
+    serviceBusDnsZoneId: networking.outputs.serviceBusDnsZoneId
     keyVaultId: security.outputs.keyVaultId
   }
 }
