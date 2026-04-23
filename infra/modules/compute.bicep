@@ -20,6 +20,9 @@ param applicationInsightsConnectionString string
 @description('Key Vault URI')
 param keyVaultUri string
 
+@description('Container Registry login server')
+param registryLoginServer string
+
 resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   name: '${environmentId}-env'
   location: location
@@ -36,7 +39,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2024-03-01'
         sharedKey: listKeys(logAnalyticsWorkspaceId, '2023-09-01').primarySharedKey
       }
     }
-    zoneRedundant: false
+    zoneRedundant: true
   }
 }
 
@@ -67,13 +70,18 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           value: applicationInsightsConnectionString
         }
       ]
-      registries: []
+      registries: [
+        {
+          server: registryLoginServer
+          identity: 'system'
+        }
+      ]
     }
     template: {
       containers: [
         {
           name: 'vprofile-app'
-          image: 'your-registry.azurecr.io/vprofile-app:latest'
+          image: '${registryLoginServer}/vprofile-app:latest'
           resources: {
             cpu: json('0.5')
             memory: '1Gi'
