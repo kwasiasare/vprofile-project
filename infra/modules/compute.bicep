@@ -17,6 +17,7 @@ param containerAppsSubnetId string
 param logAnalyticsWorkspaceId string
 
 @description('Application Insights connection string')
+@secure()
 param applicationInsightsConnectionString string
 
 @description('Key Vault URI')
