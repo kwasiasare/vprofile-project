@@ -62,6 +62,8 @@ module registry 'modules/registry.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
+    registrySubnetId: networking.outputs.registrySubnetId
+    privateDnsZoneId: networking.outputs.registryDnsZoneId
   }
 }
 
@@ -138,6 +140,7 @@ module compute 'modules/compute.bicep' = {
     logAnalyticsWorkspaceId: monitoring.outputs.logAnalyticsWorkspaceId
     applicationInsightsConnectionString: monitoring.outputs.applicationInsightsConnectionString
     keyVaultUri: security.outputs.keyVaultUri
+    registryLoginServer: registry.outputs.loginServer
   }
 }
 
