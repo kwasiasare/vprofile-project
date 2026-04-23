@@ -73,7 +73,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
       containers: [
         {
           name: 'vprofile-app'
-          image: 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: 'your-registry.azurecr.io/vprofile-app:latest'
           resources: {
             cpu: json('0.5')
             memory: '1Gi'
