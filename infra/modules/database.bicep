@@ -28,7 +28,7 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-12-30' = {
   location: location
   tags: tags
   sku: {
-    name: 'Standard_B1ms'
+    name: 'Standard_B2s'
     tier: 'Burstable'
   }
   properties: {
@@ -36,7 +36,7 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-12-30' = {
     administratorLoginPassword: adminPassword
     version: '8.0.21'
     storage: {
-      storageSizeGB: 20
+      storageSizeGB: 64
       iops: 360
       autoGrow: 'Enabled'
     }
