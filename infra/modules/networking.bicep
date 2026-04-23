@@ -74,6 +74,13 @@ resource vnet 'Microsoft.Network/virtualNetworks@2024-01-01' = {
           privateEndpointNetworkPolicies: 'Disabled'
         }
       }
+      {
+        name: 'registry-subnet'
+        properties: {
+          addressPrefix: '10.0.7.0/24'
+          privateEndpointNetworkPolicies: 'Disabled'
+        }
+      }
     ]
   }
 }
@@ -92,7 +99,7 @@ resource redisDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
 }
 
 resource storageBlobDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
-  name: 'privatelink.blob.${az.environment().suffixes.storage}'
+  name: 'privatelink.blob.core.windows.net'
   location: 'global'
   tags: tags
 }
@@ -105,6 +112,12 @@ resource keyVaultDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
 
 resource serviceBusDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
   name: 'privatelink.servicebus.windows.net'
+  location: 'global'
+  tags: tags
+}
+
+resource registryDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
+  name: 'privatelink.azurecr.io'
   location: 'global'
   tags: tags
 }
@@ -170,6 +183,18 @@ resource serviceBusDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetwork
   }
 }
 
+resource registryDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = {
+  parent: registryDnsZone
+  name: '${environmentId}-registry-link'
+  location: 'global'
+  properties: {
+    registrationEnabled: false
+    virtualNetwork: {
+      id: vnet.id
+    }
+  }
+}
+
 // Outputs
 output vnetId string = vnet.id
 output containerAppsSubnetId string = vnet.properties.subnets[0].id
@@ -178,8 +203,10 @@ output redisSubnetId string = vnet.properties.subnets[2].id
 output storageSubnetId string = vnet.properties.subnets[3].id
 output keyVaultSubnetId string = vnet.properties.subnets[4].id
 output serviceBusSubnetId string = vnet.properties.subnets[5].id
+output registrySubnetId string = vnet.properties.subnets[6].id
 output mysqlDnsZoneId string = mysqlDnsZone.id
 output redisDnsZoneId string = redisDnsZone.id
 output storageBlobDnsZoneId string = storageBlobDnsZone.id
 output keyVaultDnsZoneId string = keyVaultDnsZone.id
 output serviceBusDnsZoneId string = serviceBusDnsZone.id
+output registryDnsZoneId string = registryDnsZone.id
