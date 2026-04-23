@@ -16,7 +16,7 @@ param serviceBusId string
 @description('Search Service resource ID')
 param searchServiceId string
 
-// ACR Pull role assignment
+// ACR Pull role assignment - scoped to specific container registry
 resource acrPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(containerRegistryId, containerAppPrincipalId, 'AcrPull')
   scope: resourceGroup()
@@ -27,7 +27,7 @@ resource acrPullRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
   }
 }
 
-// Key Vault Secrets User role assignment
+// Key Vault Secrets User role assignment - scoped to specific key vault
 resource keyVaultSecretsUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(keyVaultId, containerAppPrincipalId, 'KeyVaultSecretsUser')
   scope: resourceGroup()
@@ -38,7 +38,7 @@ resource keyVaultSecretsUserRoleAssignment 'Microsoft.Authorization/roleAssignme
   }
 }
 
-// Storage Blob Data Contributor role assignment
+// Storage Blob Data Contributor role assignment - scoped to specific storage account
 resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(storageAccountId, containerAppPrincipalId, 'StorageBlobDataContributor')
   scope: resourceGroup()
@@ -49,7 +49,7 @@ resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleA
   }
 }
 
-// Service Bus Data Sender role assignment
+// Service Bus Data Sender role assignment - scoped to specific service bus
 resource serviceBusDataSenderRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(serviceBusId, containerAppPrincipalId, 'ServiceBusDataSender')
   scope: resourceGroup()
@@ -60,7 +60,7 @@ resource serviceBusDataSenderRoleAssignment 'Microsoft.Authorization/roleAssignm
   }
 }
 
-// Search Service Contributor role assignment
+// Search Service Contributor role assignment - scoped to specific search service
 resource searchServiceContributorRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(searchServiceId, containerAppPrincipalId, 'SearchServiceContributor')
   scope: resourceGroup()
