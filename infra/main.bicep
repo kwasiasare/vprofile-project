@@ -51,7 +51,6 @@ module security 'modules/security.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
-    vnetId: networking.outputs.vnetId
     keyVaultSubnetId: networking.outputs.keyVaultSubnetId
   }
 }
@@ -88,7 +87,6 @@ module storage 'modules/storage.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
-    vnetId: networking.outputs.vnetId
     storageSubnetId: networking.outputs.storageSubnetId
     privateDnsZoneId: networking.outputs.storageBlobDnsZoneId
   }
@@ -101,7 +99,6 @@ module caching 'modules/caching.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
-    vnetId: networking.outputs.vnetId
     redisSubnetId: networking.outputs.redisSubnetId
     privateDnsZoneId: networking.outputs.redisDnsZoneId
     keyVaultId: security.outputs.keyVaultId
@@ -115,7 +112,6 @@ module messaging 'modules/messaging.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
-    vnetId: networking.outputs.vnetId
     serviceBusSubnetId: networking.outputs.serviceBusSubnetId
     keyVaultId: security.outputs.keyVaultId
   }
@@ -138,7 +134,6 @@ module compute 'modules/compute.bicep' = {
     environmentId: environmentId
     location: location
     tags: commonTags
-    vnetId: networking.outputs.vnetId
     containerAppsSubnetId: networking.outputs.containerAppsSubnetId
     logAnalyticsWorkspaceId: monitoring.outputs.logAnalyticsWorkspaceId
     applicationInsightsConnectionString: monitoring.outputs.applicationInsightsConnectionString
