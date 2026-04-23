@@ -8,7 +8,7 @@ param location string
 param tags object
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
-  name: '${environmentId}acr${uniqueString(resourceGroup().id)}'
+  name: '${replace(environmentId, '-', '')}acr${uniqueString(resourceGroup().id)}'
   location: location
   tags: tags
   sku: {
