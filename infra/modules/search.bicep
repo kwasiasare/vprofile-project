@@ -7,7 +7,7 @@ param location string
 @description('Resource tags')
 param tags object
 
-resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' = {
+resource searchService 'Microsoft.Search/searchServices@2023-11-01' = {
   name: '${environmentId}-search'
   location: location
   tags: tags
@@ -18,7 +18,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' = {
     replicaCount: 1
     partitionCount: 1
     hostingMode: 'default'
-    publicNetworkAccess: 'enabled'
+    publicNetworkAccess: 'disabled'
     encryptionWithCmk: {
       enforcement: 'Unspecified'
     }
