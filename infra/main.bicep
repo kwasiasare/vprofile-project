@@ -158,11 +158,19 @@ module rbac 'modules/rbac.bicep' = {
 }
 
 // Outputs
+@description('URL of the deployed container application')
 output containerAppUrl string = compute.outputs.containerAppUrl
+@description('Key Vault URI for accessing secrets')
 output keyVaultUri string = security.outputs.keyVaultUri
+@description('Container Registry login server for image operations')
 output containerRegistryLoginServer string = registry.outputs.loginServer
+@description('MySQL server name for database connections')
 output mysqlServerName string = database.outputs.serverName
+@description('Redis cache name for caching operations')
 output redisCacheName string = caching.outputs.cacheName
+@description('Service Bus namespace for messaging')
 output serviceBusNamespace string = messaging.outputs.namespaceName
+@description('Search service name for search operations')
 output searchServiceName string = search.outputs.serviceName
+@description('Storage account name for blob operations')
 output storageAccountName string = storage.outputs.accountName
