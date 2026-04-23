@@ -22,7 +22,7 @@ resource redisCache 'Microsoft.Cache/Redis@2024-03-01' = {
   tags: tags
   properties: {
     sku: {
-      name: 'Basic'
+      name: 'Standard'
       family: 'C'
       capacity: 0
     }
@@ -32,6 +32,7 @@ resource redisCache 'Microsoft.Cache/Redis@2024-03-01' = {
     redisConfiguration: {
       'maxmemory-policy': 'allkeys-lru'
     }
+    redisVersion: '6.0'
   }
 }
 
