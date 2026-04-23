@@ -7,9 +7,6 @@ param location string
 @description('Resource tags')
 param tags object
 
-@description('Virtual Network resource ID')
-param vnetId string
-
 @description('Storage subnet resource ID')
 param storageSubnetId string
 
@@ -17,7 +14,7 @@ param storageSubnetId string
 param privateDnsZoneId string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
-  name: '${environmentId}st${uniqueString(resourceGroup().id)}'
+  name: '${replace(environmentId, '-', '')}st${uniqueString(resourceGroup().id)}'
   location: location
   tags: tags
   sku: {
