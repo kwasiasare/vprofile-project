@@ -48,6 +48,7 @@ module monitoring 'modules/monitoring.bicep' = {
 module security 'modules/security.bicep' = {
   name: 'security'
   params: {
+    projectName: projectName
     environmentId: environmentId
     location: location
     tags: commonTags
