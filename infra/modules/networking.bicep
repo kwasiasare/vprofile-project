@@ -92,7 +92,7 @@ resource redisDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
 }
 
 resource storageBlobDnsZone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
-  name: 'privatelink.blob.core.windows.net'
+  name: 'privatelink.blob.${az.environment().suffixes.storage}'
   location: 'global'
   tags: tags
 }
