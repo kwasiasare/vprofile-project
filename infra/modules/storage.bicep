@@ -14,7 +14,7 @@ param storageSubnetId string
 param privateDnsZoneId string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
-  name: '${replace(environmentId, '-', '')}st${uniqueString(resourceGroup().id)}'
+  name: '${take(replace(environmentId, '-', ''), 15)}st${take(uniqueString(resourceGroup().id), 8)}'
   location: location
   tags: tags
   sku: {
