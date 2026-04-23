@@ -1,3 +1,6 @@
+@description('Project name used for resource naming')
+param projectName string
+
 @description('Environment identifier for resource naming')
 param environmentId string
 
@@ -14,7 +17,7 @@ param keyVaultSubnetId string
 param keyVaultDnsZoneId string
 
 resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
-  name: '${environmentId}-kv-${uniqueString(resourceGroup().id)}'
+  name: toLower('${take(projectName, 11)}-kv-${take(uniqueString(resourceGroup().id), 8)}')
   location: location
   tags: tags
   properties: {
