@@ -16,7 +16,7 @@ resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-pr
   }
   properties: {
     adminUserEnabled: false
-    publicNetworkAccess: 'Enabled'
+    publicNetworkAccess: 'Disabled'
     networkRuleBypassOptions: 'AzureServices'
     policies: {
       retentionPolicy: {
