@@ -18,7 +18,7 @@ resource searchService 'Microsoft.Search/searchServices@2024-06-01-preview' = {
     replicaCount: 1
     partitionCount: 1
     hostingMode: 'default'
-    publicNetworkAccess: 'enabled'
+    publicNetworkAccess: 'disabled'
     networkRuleSet: {
       ipRules: []
     }
