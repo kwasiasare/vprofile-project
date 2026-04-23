@@ -28,16 +28,16 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-12-30' = {
   location: location
   tags: tags
   sku: {
-    name: 'Standard_B2s'
-    tier: 'Burstable'
+    name: 'Standard_D2s_v3'
+    tier: 'GeneralPurpose'
   }
   properties: {
     administratorLogin: adminUsername
     administratorLoginPassword: adminPassword
     version: '8.0.21'
     storage: {
-      storageSizeGB: 64
-      iops: 360
+      storageSizeGB: 128
+      iops: 500
       autoGrow: 'Enabled'
     }
     backup: {
@@ -45,7 +45,8 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-12-30' = {
       geoRedundantBackup: 'Disabled'
     }
     highAvailability: {
-      mode: 'Disabled'
+      mode: 'ZoneRedundant'
+      standbyAvailabilityZone: '2'
     }
     network: {
       delegatedSubnetResourceId: databaseSubnetId
