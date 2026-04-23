@@ -28,8 +28,8 @@ resource mysqlServer 'Microsoft.DBforMySQL/flexibleServers@2023-12-30' = {
   location: location
   tags: tags
   sku: {
-    name: 'Standard_B1ms'
-    tier: 'Burstable'
+    name: 'Standard_D2ds_v4'
+    tier: 'GeneralPurpose'
   }
   properties: {
     administratorLogin: adminUsername
