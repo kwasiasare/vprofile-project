@@ -22,7 +22,7 @@ resource searchService 'Microsoft.Search/searchServices@2023-11-01' = {
     encryptionWithCmk: {
       enforcement: 'Unspecified'
     }
-    disableLocalAuth: true
+    disableLocalAuth: false
     authOptions: {
       aadOrApiKey: {
         aadAuthFailureMode: 'http401WithBearerChallenge'
