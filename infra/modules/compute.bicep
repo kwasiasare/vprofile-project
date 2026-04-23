@@ -7,9 +7,6 @@ param location string
 @description('Resource tags')
 param tags object
 
-@description('Virtual Network resource ID')
-param vnetId string
-
 @description('Container Apps subnet resource ID')
 param containerAppsSubnetId string
 
