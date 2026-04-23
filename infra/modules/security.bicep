@@ -10,6 +10,9 @@ param tags object
 @description('Key Vault subnet resource ID')
 param keyVaultSubnetId string
 
+@description('Key Vault private DNS zone resource ID')
+param keyVaultDnsZoneId string
+
 resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: '${environmentId}-kv-${uniqueString(resourceGroup().id)}'
   location: location
@@ -50,6 +53,21 @@ resource keyVaultPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-01-01'
           groupIds: [
             'vault'
           ]
+        }
+      }
+    ]
+  }
+}
+
+resource keyVaultPrivateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-01-01' = {
+  parent: keyVaultPrivateEndpoint
+  name: 'default'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink-vaultcore-azure-net'
+        properties: {
+          privateDnsZoneId: keyVaultDnsZoneId
         }
       }
     ]
