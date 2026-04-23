@@ -7,9 +7,6 @@ param location string
 @description('Resource tags')
 param tags object
 
-@description('Virtual Network resource ID')
-param vnetId string
-
 @description('Key Vault subnet resource ID')
 param keyVaultSubnetId string
 
