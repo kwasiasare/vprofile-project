@@ -10,6 +10,9 @@ param tags object
 @description('Service Bus subnet resource ID')
 param serviceBusSubnetId string
 
+@description('Service Bus private DNS zone resource ID')
+param serviceBusDnsZoneId string
+
 @description('Key Vault resource ID for storing connection string')
 param keyVaultId string
 
@@ -55,6 +58,21 @@ resource serviceBusPrivateEndpoint 'Microsoft.Network/privateEndpoints@2024-01-0
           groupIds: [
             'namespace'
           ]
+        }
+      }
+    ]
+  }
+}
+
+resource serviceBusPrivateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-01-01' = {
+  parent: serviceBusPrivateEndpoint
+  name: 'default'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'privatelink-servicebus-windows-net'
+        properties: {
+          privateDnsZoneId: serviceBusDnsZoneId
         }
       }
     ]
