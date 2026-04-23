@@ -13,14 +13,6 @@
     },
     "mysqlAdminUsername": {
       "value": "vprofileadmin"
-    },
-    "mysqlAdminPassword": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/YOUR_SUBSCRIPTION_ID/resourceGroups/YOUR_KEYVAULT_RG/providers/Microsoft.KeyVault/vaults/YOUR_KEYVAULT_NAME"
-        },
-        "secretName": "mysql-admin-password"
-      }
     }
   }
 }
