@@ -13,12 +13,12 @@ param registrySubnetId string
 @description('Private DNS zone resource ID for Container Registry')
 param privateDnsZoneId string
 
-resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
   name: '${replace(environmentId, '-', '')}acr${uniqueString(resourceGroup().id)}'
   location: location
   tags: tags
   sku: {
-    name: 'Basic'
+    name: 'Standard'
   }
   properties: {
     adminUserEnabled: false
